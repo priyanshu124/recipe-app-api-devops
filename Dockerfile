@@ -1,8 +1,8 @@
 FROM python:3.7-alpine
-MAINTAINER London App Developer Ltd
+LABEL MAINTAINER="London App Developer Ltd"
 
 ENV PYTHONUNBUFFERED 1
-ENV PATH="/script:${PATH}"
+ENV PATH="/scripts:${PATH}"
 
 RUN pip install --upgrade pip
 
@@ -15,9 +15,11 @@ RUN apk del .tmp-build-deps
 
 RUN mkdir /app
 WORKDIR /app
+RUN mkdir /scripts
 COPY ./app /app
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
+
 
 RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
@@ -28,4 +30,4 @@ USER user
 
 VOLUME /vol/web
 
-CMD ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
