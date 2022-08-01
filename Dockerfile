@@ -1,8 +1,8 @@
 FROM python:3.7-alpine
-MAINTAINER London App Developer Ltd
+LABEL maintainer="London App Developer Ltd"
 
 ENV PYTHONUNBUFFERED 1
-ENV PATH="/script:${PATH}"
+ENV PATH="/scripts:${PATH}"
 
 RUN pip install --upgrade pip
 
@@ -16,7 +16,7 @@ RUN apk del .tmp-build-deps
 RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
-COPY ./scripts /scripts
+COPY ./scripts/ /scripts/
 RUN chmod +x /scripts/*
 
 RUN mkdir -p /vol/web/media
