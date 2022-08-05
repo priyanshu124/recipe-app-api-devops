@@ -6,9 +6,15 @@ terraform {
     encrypt        = true
     dynamodb_table = "recipe-app-api-tf-state-lock"
   }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
 }
 
 provider "aws" {
   region  = "us-east-1"
-  version = "~> 4.0"
 }
