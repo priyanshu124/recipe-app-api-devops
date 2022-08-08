@@ -8,7 +8,7 @@ stages:
   - Destroy
 
 Test and Lint:
-  stage: Test and List
+  stage: Test and Lint
   script:
     - echo "Test and Lint"
   rules:
