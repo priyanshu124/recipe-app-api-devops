@@ -7,65 +7,65 @@ stages:
   - Production Apply
   - Destroy
 
-  Test and Lint:
-    stage: Test and List
-    script:
-      - echo "Test and Lint"
-    rules:
-      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(main|production)$/ || $CI_COMMIT_BRANCH =~ /^(main|production)$/'
+Test and Lint:
+  stage: Test and List
+  script:
+    - echo "Test and Lint"
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(main|production)$/ || $CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
 
-  Validate Terraform:
-    stage: Test and List
-    script:
-      - echo "Validate terraform"
-    rules:
-      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(main|production)$/ || $CI_COMMIT_BRANCH =~ /^(main|production)$/'
+Validate Terraform:
+  stage: Test and List
+  script:
+    - echo "Validate terraform"
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(main|production)$/ || $CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
-  Build and Push:
-    stage: Build and Push
-    script:
-      - echo "Build and Push to ECR"
-    rules:
-      - if:  '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
+Build and Push:
+  stage: Build and Push
+  script:
+    - echo "Build and Push to ECR"
+  rules:
+    - if:  '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
-  Staging Plan:
-    stage: Staging Plan
-    script:
-      - echo "Terrafrom Paln for staging"
-    rules: 
-      - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
+Staging Plan:
+  stage: Staging Plan
+  script:
+    - echo "Terrafrom Paln for staging"
+  rules: 
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
-  Staging Apply:
-    stage: Staging Apply
-    script:
-      - echo "Terrafrom Apply for staging"
-    rules: 
-      - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
+Staging Apply:
+  stage: Staging Apply
+  script:
+    - echo "Terrafrom Apply for staging"
+  rules: 
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
 
-  Production Plan:
-    stage: Production Plan
-    script:
-      - echo "Terrafrom Paln for production"
-    rules: 
-      - if: '$CI_COMMIT_BRANCH == "production"'
+Production Plan:
+  stage: Production Plan
+  script:
+    - echo "Terrafrom Paln for production"
+  rules: 
+    - if: '$CI_COMMIT_BRANCH == "production"'
 
-  Production Apply:
-    stage: Production Apply
-    script:
-      - echo "Terrafrom Apply for Production"
-    rules: 
-      - if: '$CI_COMMIT_BRANCH == "production"'
+Production Apply:
+  stage: Production Apply
+  script:
+    - echo "Terrafrom Apply for Production"
+  rules: 
+    - if: '$CI_COMMIT_BRANCH == "production"'
 
-  Staging Destroy:
-    stage: Destroy
-    script:
-      - echo "Destroy staging infra"
-    rules:
-      - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
-      - when: manual
+Staging Destroy:
+  stage: Destroy
+  script:
+    - echo "Destroy staging infra"
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^(main|production)$/'
+    - when: manual
 
-  Production Destroy:
+Production Destroy:
   stage: Destroy
   script:
     - echo "Destroy production infra"
@@ -73,4 +73,4 @@ stages:
     - if: '$CI_COMMIT_BRANCH == "production"'
     - when: manual
 
-  
+
