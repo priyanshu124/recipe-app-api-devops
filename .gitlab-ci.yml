@@ -36,37 +36,62 @@ Validate Terraform:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Build and Push:
+  image: docker:19.03.5
+  services:
+    - docker:19.03.5-dind
   stage: Build and Push
   script:
-    - echo "Build and Push to ECR"
+    - apk add python3
+    - pip3 install awscli
+    - docker build --compress -t $ECR_REPO:$CI_COMMIT_SHORT_SHA . #name of image is ECR_REPO:first_8_chr_of_latest_commitId
+    - $(aws ecr get-login --no-include-email --region us-east-1)
+    - docker push $ECR_REPO:$CI_COMMIT_SHORT_SHA
+    - docker tag $ECR_REPO:$CI_COMMIT_SHORT_SHA $ECR_REPO:latest
+    - docker push $ECR_REPO:latest
   rules:
-    - if:  '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Plan:
   stage: Staging Plan
   script:
-    - echo "Terrafrom Paln for staging"
-  rules: 
+    - cd deploy/
+    - export TF_VAR_ecr_image_api=$ECR_REPO:$CI_COMMIT_SHORT_SHA
+    - terraform init
+    - terraform workspace select staging || terraform workspace new staging
+    - terraform plan
+  rules:
     - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Apply:
   stage: Staging Apply
   script:
-    - echo "Terrafrom Apply for staging"
+    - cd deploy/
+    - export TF_VAR_ecr_image_api=$ECR_REPO:$CI_COMMIT_SHORT_SHA
+    - terraform init
+    - terraform workspace select staging
+    - terraform apply -auto-approve
   rules: 
     - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Production Plan:
   stage: Production Plan
   script:
-    - echo "Terrafrom Paln for production"
+    - cd deploy/
+    - export TF_VAR_ecr_image_api=$ECR_REPO:$CI_COMMIT_SHORT_SHA
+    - terraform init
+    - terraform workspace select production || terraform workspace new production
+    - terraform plan
   rules: 
     - if: '$CI_COMMIT_BRANCH == "production"'
 
 Production Apply:
   stage: Production Apply
   script:
-    - echo "Terrafrom Apply for Production"
+    - cd deploy/
+    - export TF_VAR_ecr_image_api=$ECR_REPO:$CI_COMMIT_SHORT_SHA
+    - terraform init
+    - terraform workspace select production
+    - terraform apply -auto-approve
   rules: 
     - if: '$CI_COMMIT_BRANCH == "production"'
 
