@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED 1
 ENV PATH="/scripts:${PATH}"
 
 RUN pip install --upgrade pip
->>>>>>> b8a3f8a878672c2afd74b294f4b19d1bcd5cbdb7
 
 COPY ./requirements.txt /requirements.txt
 RUN apk add --update --no-cache postgresql-client jpeg-dev
