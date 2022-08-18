@@ -14,6 +14,6 @@ resource "aws_internet_gateway" "main" {
 
   tags = merge(
     local.common_tags,
-    { "Name" = "${local.prefix}-vpc" }
+    { "Name" = "${local.prefix}-internetGateway" }
   )
 }
