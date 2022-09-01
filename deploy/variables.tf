@@ -9,3 +9,7 @@ variable "project" {
 variable "contact" {
   default = "priyanshu12498@gmail.com"
 }
+
+variable "region" {
+  default = "us-east-1"
+}

@@ -30,11 +30,11 @@ resource "aws_subnet" "public_a" {
   cidr_block              = "10.1.1.0/24"
   map_public_ip_on_launch = true
   vpc_id                  = aws_vpc.main.id
-  availability_zone       = "${data.aws_region.current.name}a"
+  availability_zone       = "${var.region}a"
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-a"}
+    { "Name" = "${local.prefix}-public-a" }
   )
 }
 
@@ -43,7 +43,7 @@ resource "aws_route_table" "public_a" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-a"}
+    { "Name" = "${local.prefix}-public-a" }
   )
 }
 
@@ -63,7 +63,7 @@ resource "aws_eip" "public_a" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-a"}
+    { "Name" = "${local.prefix}-public-a" }
   )
 }
 
@@ -73,7 +73,7 @@ resource "aws_nat_gateway" "public_a" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-a"}
+    { "Name" = "${local.prefix}-public-a" }
   )
 }
 
@@ -86,11 +86,11 @@ resource "aws_subnet" "public_b" {
   cidr_block              = "10.1.2.0/24"
   map_public_ip_on_launch = true
   vpc_id                  = aws_vpc.main.id
-  availability_zone       = "${data.aws_region.current.name}b"
+  availability_zone       = "${var.region}b"
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-b"}
+    { "Name" = "${local.prefix}-public-b" }
   )
 }
 
@@ -99,7 +99,7 @@ resource "aws_route_table" "public_b" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-b"}
+    { "Name" = "${local.prefix}-public-b" }
   )
 }
 
@@ -119,7 +119,7 @@ resource "aws_eip" "public_b" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-b"}
+    { "Name" = "${local.prefix}-public-b" }
   )
 }
 
@@ -129,7 +129,7 @@ resource "aws_nat_gateway" "public_b" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-public-b"}
+    { "Name" = "${local.prefix}-public-b" }
   )
 }
 
@@ -144,11 +144,11 @@ resource "aws_nat_gateway" "public_b" {
 resource "aws_subnet" "private_a" {
   cidr_block        = "10.1.10.0/24"
   vpc_id            = aws_vpc.main.id
-  availability_zone = "${data.aws_region.current.name}a"
+  availability_zone = "${var.region}a"
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-private-a"}
+    { "Name" = "${local.prefix}-private-a" }
   )
 }
 
@@ -157,7 +157,7 @@ resource "aws_route_table" "private_a" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-private-a"}
+    { "Name" = "${local.prefix}-private-a" }
   )
 }
 
@@ -176,11 +176,11 @@ resource "aws_route" "private_a_internet_out" {
 resource "aws_subnet" "private_b" {
   cidr_block        = "10.1.11.0/24"
   vpc_id            = aws_vpc.main.id
-  availability_zone = "${data.aws_region.current.name}b"
+  availability_zone = "${var.region}b"
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-private-b"}
+    { "Name" = "${local.prefix}-private-b" }
   )
 }
 
@@ -189,7 +189,7 @@ resource "aws_route_table" "private_b" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-private-b"}
+    { "Name" = "${local.prefix}-private-b" }
   )
 }
 
