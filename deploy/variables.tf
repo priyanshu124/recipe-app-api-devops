@@ -13,3 +13,12 @@ variable "contact" {
 variable "region" {
   default = "us-east-1"
 }
+
+
+variable "db_username" {
+  description = "Username for RDS Postgres Database Instance"
+}
+
+variable "db_password" {
+  description = "Password for RDS Postgres Database Instance"
+}
