@@ -45,6 +45,6 @@ resource "aws_db_instance" "main" {
 
   tags = merge(
     local.common_tags,
-    {"Name" = "${local.prefix}-main"}
+    { "Name" = "${local.prefix}-main" }
   )
 }
