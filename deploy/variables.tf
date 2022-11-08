@@ -25,5 +25,5 @@ variable "db_password" {
 
 variable "bastion_key_name" {
   description = "SSH key enter bastion"
-  default = "recipe-app-api-devops-bastion"
+  default     = "recipe-app-api-devops-bastion"
 }
