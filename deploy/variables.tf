@@ -22,3 +22,8 @@ variable "db_username" {
 variable "db_password" {
   description = "Password for RDS Postgres Database Instance"
 }
+
+variable "bastion_key_name" {
+  description = "SSH key enter bastion"
+  default = "recipe-app-api-devops-bastion"
+}
